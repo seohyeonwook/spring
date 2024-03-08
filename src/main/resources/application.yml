@@ -1,11 +1,25 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-db.cvem6i86on9p.ap-northeast-2.rds.amazonaws.com:3306/spring_mvc
+  profiles:
+    active: local
+    group:
+      local: local, common, secret
 
-    username: aws
-    password: 1q2w3e4r!!
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+
 
 mybatis:
   mapper-locations:
     - /mappers/*.xml
+
