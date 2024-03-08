@@ -1,4 +1,4 @@
-package com.study.mvc.controller;
+package com.study.mvc.controller; //diAndIoc
 
 import com.study.mvc.diAndIoc.DiRepository;
 import com.study.mvc.diAndIoc.DiService;

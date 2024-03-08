@@ -43,6 +43,8 @@ public class MvcApplication {
 		// 매개변수 넣고 호출하면서 result에 값넣는거
 		System.out.println(junil(1));
 
+
+
 		SpringApplication.run(MvcApplication.class, args);
 	}
 

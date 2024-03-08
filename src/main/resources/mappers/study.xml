@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--0308-4-->
+<mapper namespace="com.study.mvc.repository.DBStudyRepository">
+<!-- namespace 레파지토리랑 연동시킴 레파지토리 인터페이스 우클릭해서 copy path 맨마지막꺼 넣자-->
+<!-- 레파지토리 하나당 .xml하나씩 만들어야함  인터페이스 만들면 원래 인플리먼츠 하나만들어야하는데 이게 그대신-->
+<!-- 오버라이드 구현을 여기서 할 수 있다-->
+
+    <!--//////////////////////[ MAP }/////////////////////////////////    -->
+    <resultMap id="StudyResultMap" type="com.study.mvc.entity.Study">
+        <id property="id" column="id"/>
+        <result property="name" column="name" />
+        <result property="age" column="age" />
+        <result property="createDate" column="create_date" />
+    </resultMap>
+<!--    id에 앞에는 엔티티 클래스 이름-->
+    <!--//////////////////////[ SQL }/////////////////////////////////    -->
+    <insert
+            id="save"
+            parameterType="com.study.mvc.entity.Study"
+            useGeneratedKeys="true"
+            keyProperty="id"
+    >
+<!--        id는 메서드명 데이터 받으려면(insert) 매개변수 있어야함-->
+<!--      useGeneratedKeys="true"
+            keyProperty="id" 응답에서 추가된거  -->
+<!--        useGeneratedKeys = key 자동 추가
+            keyProperty = 자동 추가된 key값을 저장할 속성을 선택
+-->
+        insert into study_tb
+        values (0, #{name}, #{age} ,now())
+<!--        매개변수 넣기 int 형으로 리턴 받아서 호출 된곳으로 돌아가면 post맨에 1 뜸-->
+    </insert>
+
+    <select
+            id="findStudyById"
+            parameterType="Integer"
+            resultMap="StudyResultMap"
+    >
+<!--        뒤에 타입붙으면 자료형-->
+        select
+            id,
+            name,
+            age,
+            create_date
+<!--        스네이크 표기법을 카멜로 바꿔줘야 맞아서 조회된다 위로가서 namespace 아래 Map SQL사이에-->
+        from
+            study_tb
+        where
+            id= #{id}
+
+    </select>
+<!--    하나 가지고 오기-->
+    <select
+            id="findStudyByName"
+            parameterType="String"
+            resultMap="StudyResultMap"
+    >
+        select
+            id,
+            name,
+            age,
+            create_date
+        from
+            study_tb
+        where
+            name = #{name}
+
+    </select>
+<!--    이름으로가지고오기-->
+
+    <select
+            id="findAll"
+            resultMap="StudyResultMap"
+    >
+        select
+            id,
+            name,
+            age,
+            create_date
+        from
+            study_tb
+
+    </select>
+<!--    전부 가져오기-->
+
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from
+            study_tb
+        where
+            id = #{id}
+    </delete>
+    <!--        삭제하기-->
+
+    <update id="putById" parameterType="com.study.mvc.entity.Study"
+    >
+        update study_tb
+        set
+            name = #{name},
+            age = #{age}
+        where
+            id=#{id}
+    </update>
+<!--    id값 빼고 set에서 바꿔줘야함 -->
+<!--    name = #{name},  = name을 새로 넣는 name으로 바꿔라-->
+
+    <update id="patchById" parameterType="com.study.mvc.entity.Study"
+    >
+        update study_tb
+        set
+            <if test="name != null and !name.equals('')">
+                name = #{name}.
+            </if>
+            <if test="age != 0">
+                age = #{age},
+            </if>
+                create_date = create_date
+        where
+        id=#{id}
+
+    </update>
+
+</mapper>

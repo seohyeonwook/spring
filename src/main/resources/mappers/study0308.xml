@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.mvc.dddd.day0308.StudyRepository">
+    <insert id="save" parameterType="com.study.mvc.dddd.day0308.Study0308">
+        insert into study0308_tb
+        values( 0, #{name}, #{age}, now())
+    </insert>
+</mapper>
