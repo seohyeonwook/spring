@@ -66,6 +66,9 @@ public class DBController { //0308-1
 // 데이터베이스로간다 실행해서 성공하면 레파지토리에 리턴형 int가있으니까 성공한 횟수 1을 (postman화면)출력함
 // 그리고 데이터베이스 가서 확인해보면 자료들어가있음
 
+    //--------------------------------------------------------------
+    // 조회
+
     @GetMapping("/select/study/{id}") //select = id 조회
     public ResponseEntity<?> selectStudy(@PathVariable int id) {
         return ResponseEntity.ok(dbStudyService.findStudyById(id));
@@ -80,10 +83,16 @@ public class DBController { //0308-1
         return ResponseEntity.ok(dbStudyService.findAll());
     }
 
+    //--------------------------------------------------------------
+    // 삭제
+
     @DeleteMapping("/delete/study/{id}") //삭제
     public ResponseEntity<?> deleteStudy(@PathVariable int id) {
         return ResponseEntity.ok(dbStudyService.deleteById(id));
     }
+
+    //----------------------------------------------------------------------------
+    // 업데이트
 
     // put 과 patch는 이름만 명시일뿐 안에 로직은 우리가 만들어줘야함  풋은 바디에 제이슨
     @PutMapping("/update/study/{id}") //업데이트 1 -put 전체수정 -빈값있으면 빈값으로 바꾸고 저장

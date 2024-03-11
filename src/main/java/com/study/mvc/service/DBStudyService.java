@@ -21,6 +21,9 @@ public class DBStudyService { //0308-6
     // 근데 연결되어있는 .xml이 컴포넌트라서 가능
     private DBStudyRepository dbStudyRepository;
 
+    //---------------------------------------------------------------------------
+    // 요청
+
 //    public int createStudy(DBStudyReqDto dbStudyReqDto) {
 //
 //        //dto를 netity로 바꾸는 작업 -몇가지
@@ -41,7 +44,9 @@ public class DBStudyService { //0308-6
 //
 //
 //        return dbStudyRepository.save(study);
-    //여기까지는 요청 밑에는 응답할때
+
+    //---------------------------------------------------------------------------
+    //응답
 
     public DBStudyinsertRespDto createStudy(DBStudyReqDto dbStudyReqDto) {
 
@@ -71,6 +76,9 @@ public class DBStudyService { //0308-6
         return dbStudyinsertRespDto;
     }
 
+    //---------------------------------------------------------------------------
+    // 조회
+
     public DBStudySelectRespDto findStudyById(int id) { //select = 조회
 
         Study study = dbStudyRepository.findStudyById(id);
@@ -91,7 +99,7 @@ public class DBStudyService { //0308-6
         Study study = dbStudyRepository.findStudyByName(name);
         return study == null ? null : study.toDto();// ex)김준삼같이 없는 데이터로 조회했을때
     }
-//-----------------------------------------------------
+
     public List<DBStudySelectRespDto> findAll() { //전부 찾기
         List<DBStudySelectRespDto> respDtoList = new ArrayList<>();//비어있는 리스트만들어서 담아줘야함
         List<Study> studyList = dbStudyRepository.findAll();
@@ -108,11 +116,16 @@ public class DBStudyService { //0308-6
                 .map(Study::toDto)
                 .collect(Collectors.toList());
     }
-//-----------------------------------------------------
+
+    //---------------------------------------------------------------------------
+    // 삭제
+
     public int deleteById(int id) { //삭제
         return dbStudyRepository.deleteById(id);
     }
-    //-----------------------------------------------------
+
+    //---------------------------------------------------------------------------
+    //업데이트
 
     public int putById(int id, DBStudyReqDto dbStudyReqDto) {
         return  dbStudyRepository.putById(dbStudyReqDto.toEntity(id));
